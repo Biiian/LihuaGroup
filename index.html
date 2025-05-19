@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>丽华集团，称霸东南</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00A0E9;
+            --secondary-color: #FF4E4E;
+            --dark-color: #2D2D2D;
+            --light-color: #F8FAFC;
+            --text-light: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+
+        /* 动态导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 8px 0;
+            color: var(--dark-color);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        /* 四个全屏横图 */
+        .fullscreen-section {
+            height: 900px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .section-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 1;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        /* 热销推荐 */
+        .products-section {
+            padding: 80px 20px;
+            background: var(--light-color);
+        }
+
+        .product-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-tag {
+            background: var(--secondary-color);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        /* 为什么选择我们 */
+        .features-section {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .feature-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* 底部信息 */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .footer-section {
+            padding: 20px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .footer-contact p {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .icp {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .fullscreen-section {
+                height: 600px;
+                padding: 60px 20px;
+                background-position: 65% center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images/00.png">
+                丽华集团
+            </div>
+            <div class="nav-links">
+                <div class="nav-item">遥遥领先</div>
+                <div class="nav-item">唯我独尊</div>
+                <div class="nav-item">独占鳌头</div>
+                <div class="nav-item">一家独大</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 四个全屏横图 -->
+    <section class="fullscreen-section" style="background-image: url('images/11.jpg')">
+        <div class="section-overlay"></div>
+        <div class="section-content">
+            <h1 class="section-title">缸子宝贝</h1>
+            <p class="section-subtitle">全球70亿人类的好朋友</p>
+        </div>
+    </section>
+
+    <section class="fullscreen-section" style="background-image: url('images/12.jpg')">
+        <div class="section-overlay"></div>
+        <div class="section-content">
+            <h1 class="section-title">丽华宝贝</h1>
+            <p class="section-subtitle">长沙县为他建了40个吸烟室</p>
+        </div>
+    </section>
+
+    <section class="fullscreen-section" style="background-image: url('images/13.jpg')">
+        <div class="section-overlay"></div>
+        <div class="section-content">
+            <h1 class="section-title">静子宝贝</h1>
+            <p class="section-subtitle">独占鳌头，好人卡拿到手软</p>
+        </div>
+    </section>
+
+    <section class="fullscreen-section" style="background-image: url('images/14.jpg')">
+        <div class="section-overlay"></div>
+        <div class="section-content">
+            <h1 class="section-title">宝贝三合一+1</h1>
+            <p class="section-subtitle">多重精彩，一次放送</p>
+        </div>
+    </section>
+
+    <!-- 热销推荐 -->
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">热销推荐</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('images/21.jpg')"></div>
+                    <div class="product-info">
+                        <span class="product-tag">不限时10折</span>
+                        <h3>酸酸辣辣酸辣粉</h3>
+                        <p class="product-price">¥49.8</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('images/22.jpg')"></div>
+                    <div class="product-info">
+                        <span class="product-tag">新品上市</span>
+                        <h3>地地道道豆干礼包</h3>
+                        <p class="product-price">¥29.8</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('images/23.jpg')"></div>
+                    <div class="product-info">
+                        <span class="product-tag">特色美味</span>
+                        <h3>有滋有味泡凤爪</h3>
+                        <p class="product-price">¥49.8</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 为什么选择我们 -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">为什么选择我们</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3>安全认证</h3>
+                    <p>该有的手续都有</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-battery-full feature-icon"></i>
+                    <h3>活力满满</h3>
+                    <p>这个是根据图标编的</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-heartbeat feature-icon"></i>
+                    <h3>心动时刻</h3>
+                    <p>当然是对豆干啦</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>图标展示</h3>
+                <p><i class="fas fa-phone"></i> 这个是电话图标</p>
+                <p><i class="fas fa-envelope"></i> 这个是信封图标</p>
+                <p><i class="fas fa-map-marker-alt"></i> 这个是定位图标</p>
+            </div>
+            <div class="footer-section">
+                <h3>快速链接</h3>
+                <p>没时间做跳转</p>
+                <p>大家可以淘宝</p>
+                <p>快速搜猴小海</p>
+            </div>
+            <div class="footer-section">
+                <h3>关注我们</h3>
+                <p><i class="fab fa-weixin"></i> 哔哩哔哩</p>
+                <p><i class="fab fa-weibo"></i> 官方微博</p>
+                <p><i class="fab fa-tiktok"></i> 抖音账号</p>
+            </div>
+        </div>
+        <div class="icp">
+          
+            <p>© 2023年11月1号20：57分 长沙猴猴猴文化传媒有限公司 版权所有</p>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            navbar.style.background = window.scrollY > 100 
+                ? 'rgba(255,255,255,0.98)' 
+                : 'rgba(255,255,255,0.97)';
+        });
+
+        // 平滑滚动定位
+        document.querySelectorAll('.nav-item').forEach((item, index) => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sections = document.querySelectorAll('.fullscreen-section');
+                if(sections[index]) {
+                    window.scrollTo({
+                        top: sections[index].offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
